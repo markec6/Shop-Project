@@ -13,6 +13,7 @@ import { ClerkProvider } from '@clerk/react'
 import HomePage from './pages/HomePage.jsx'
 import SinglePage from './pages/SinglePage.jsx'
 import CartPage from './pages/CartPage.jsx'
+import FavoritePage from './pages/FavoritePage.jsx'
 
 // Mora da se podudara sa onim iz naseg roota, ali ovo ce uvek biti ovako
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
         {
           path: '/Cart',
           element: <CartPage/>
+        },
+        {
+          path:'/favorite',
+          element:<FavoritePage/>
         }
       ]
   }

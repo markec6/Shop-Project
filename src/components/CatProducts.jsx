@@ -6,9 +6,12 @@ import { Rating } from "react-simple-star-rating"
 import { Link } from "react-router-dom"
 import { FaLocationArrow } from "react-icons/fa6";
 import { AiFillHeart } from "react-icons/ai";
+import { setFavoriteProduct } from "../Redux/favoriteSlice"
 
 
 function CatProducts() {
+    //state za favorite 
+    const favorite = useSelector((state) => state.favorite.favorite)
     
     
     //uvozimo state za cart
@@ -45,6 +48,7 @@ function CatProducts() {
     const onPointerLeave = () => console.log('Leave')
     const onPointerMove = (value, index) => console.log(value, index)
 
+
   return (
     // prikaz proizvoda sa ovim lokalnim stateom
     <div className="max-w-7xl mx-auto px-[10px]">
@@ -53,8 +57,12 @@ function CatProducts() {
             {categoryProducts.slice(0, 6).map((product) => (
                 <div className="relative mx-auto w-[95%] md:w-[30%] border border-OurBorder rounded-[12px]">
                     <img className="w-[100%] object-cover"  src={product.thumbnail} alt=""/>
-                    <div className=" absolute top-[20px] right-[20px] p-[8px] rounded-2xl bg-OurBorder/20 ">
-                         <AiFillHeart/>
+                    <div onClick={() => {
+                        // state iz favoriteSlice
+                        dispatch(setFavoriteProduct(product))
+                    }} className={`absolute top-[20px] right-[20px] p-[8px]   transition-all duration-300  rounded-full border border-OurBorder/20 cursor-pointer 
+                        ${favorite.some(item => item.id === product.id) ? 'bg-red-600/70' : 'bg-OurBorder/20'}`}>
+                         <AiFillHeart className="cursor-pointer"/>
                     </div>
                         <div className="p-[12px] ">
                             <p className="text-[16px] text-primary1 font-bold">{product.title}</p>
@@ -75,7 +83,7 @@ function CatProducts() {
                                <p className="text-[22px] md:text-[18px] font-semibold font-sans opacity-70">${product.price}</p>
                                <div className="flex items-center">
                                 {/**ovde prosledjujemo tacno putanju sa dinamcki id */}
-                                  <Link to={`/Product/${product.id}`} className="p-[10px] font-bold text-primary1">View more</Link>
+                                  <Link to={`/Product/${product.id}`} className="p-[6px] font-bold text-primary1">View more</Link>
                                   <FaLocationArrow className="text-primary1"/>
                                </div>
                             </div>

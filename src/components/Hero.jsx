@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {setCart} from "../Redux/cartSlice"
+import { toast } from 'react-toastify';
 
 function Hero() {
 
@@ -49,9 +50,9 @@ function Hero() {
        <div className="flex flex-col-reverse items-center md:flex-row items-center justify-around p-10 h-full">
           <div className='w-[100%] md:w-auto flex flex-col items-center'>
              <h1 className="text-[40px] font-semibold mb-[16px] text-center">{product.title}</h1>
-             <div className='flex flex-col md:flex-row gap-[16px] items-center'>
-              <Link to={'/cart'} onClick={() => {dispatch(setCart(product))}} className="px-0 py-0 w-[100%] md:w-auto md:px-[32px] md:py-[16px] bg-primary1 text-white font-semibold  py-4 rounded mt-5">Add to cart</Link>
-              <Link to={`/Product/${product.id}`} className='px-0 py-0 w-[100%] md:w-auto md:px-[32px] md:py-[16px] bg-primary2 text-white font-semibold  py-4 rounded mt-5'>View more</Link>
+             <div className='w-[80%] md:w-[100%] flex flex-col gap-[0] md:flex-row md:gap-[16px] items-center'>
+              <Link to={'/cart'} onClick={() => {dispatch(setCart(product)), toast.success('Success added to cart!')}} className="text-center w-[100%] md:w-auto md:px-[32px] md:py-[16px] bg-primary1 text-white font-semibold  py-4 rounded mt-5">Add to cart</Link>
+              <Link to={`/Product/${product.id}`} className='text-center w-[100%] md:w-auto md:px-[32px] md:py-[16px] bg-primary2 text-white font-semibold  py-4 rounded mt-5'>View more</Link>
              </div>
           </div>
             <div className='relative'>

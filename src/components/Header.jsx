@@ -32,7 +32,7 @@ function Header() {
                 <LuTruck />
                 <p className='text-[14px]'>Track your order</p>
             </div>
-            <RxCross2 className='ml-[10px]' onClick={ShowHeader}/>
+            <RxCross2 className='ml-[10px] cursor-pointer' onClick={ShowHeader}/>
         </div>
     </div>
    )}

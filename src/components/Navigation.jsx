@@ -11,6 +11,7 @@ import { useSelector } from "react-redux"
 function Navigation() {
 
     const cart = useSelector((state) => state.cart.cart)
+    const favorite = useSelector((state) => state.favorite.favorite)
 
   return (
     <div className='bg-primary1'>
@@ -26,8 +27,8 @@ function Navigation() {
                 <div className='flex items-center'>
                     {/**kada je user logovan**/}
                     <Show when="signed-out">
-                      <CgProfile className='text-white' />
-                      <SignInButton className='ml-[8px] text-white text-[14px]'/>
+                      <CgProfile className='text-white ' />
+                      <SignInButton className='ml-[8px] text-white text-[14px] cursor-pointer'/>
                     </Show>
                     {/**kada user nije logovan**/}
                     <Show when="signed-in">
@@ -36,8 +37,8 @@ function Navigation() {
                 </div>
                 <div className='flex items-center'>
                     <FaHeart className='text-white' />
-                    <span className='ml-[4px] text-[12px] font-semibold text-white bg-primary2 px-[5px] rounded-full'>0</span>
-                    <Link className=' text-[14px] text-white ml-[8px]'>Favorite</Link>
+                    <span className='ml-[4px] text-[12px] font-semibold text-white bg-primary2 px-[5px] rounded-full'>{favorite.length}</span>
+                    <Link to={'/favorite'} className=' text-[14px] text-white ml-[8px]'>Favorite</Link>
                 </div>
                 <div className='flex items-center'>
                     <FaCartShopping className='text-white' />

@@ -3,12 +3,16 @@ import { Rating } from "react-simple-star-rating"
 import { AiFillHeart } from "react-icons/ai";
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {setCart} from '../Redux/cartSlice';
+//Toastify
+import { toast } from 'react-toastify';
+import { setFavoriteProduct } from "../Redux/favoriteSlice"
 
 function SingleProductComponent({product}) {
 
     const dispatch = useDispatch()
+    const favorite = useSelector((state) => state.favorite.favorite)
 
     //state za prikaz slike na klik
     const [currnetImage, setCurrentImage] = useState(0)
@@ -51,8 +55,14 @@ function SingleProductComponent({product}) {
                 <div className='flex flex-col gap-[32px]'>
                     <p className='opacity-75'>{product.description}</p>
                     <div className='flex items-center justify-between'>
-                        <Link to={'/cart'} onClick={() => dispatch(setCart(product))} className='px-[32px] py-[16px] text-white font-semibold bg-primary2 rounded-[6px]'>Add to cart</Link>
-                        <div className='p-[6px] rounded-full bg-OurBorder/50'>
+                        <Link to={'/cart'} onClick={() => {
+                            dispatch(setCart(product)); 
+                            toast.success('Success added to cart!');
+                        }} className='px-[32px] py-[16px] text-white font-semibold bg-primary2 rounded-[6px]'>Add to cart</Link>
+                        <div className={`p-[6px] rounded-full transition-all duration-300
+                        ${favorite.some(item => item.id === product.id) ? 'bg-red-600/70' : 'bg-OurBorder/50'}`                  
+                        }
+                        onClick={() => dispatch(setFavoriteProduct(product))}>
                            <AiFillHeart size={30}/>
                         </div>
                     </div>
